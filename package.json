@@ -1,0 +1,43 @@
+{
+  "name": "planning-poker-slack",
+  "version": "0.1.0",
+  "description": "A Slack App to help using planning poker for SCRUM projects — ￼Edit",
+  "engines": {
+    "node": ">=6.2.2"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "debug": "node debug ./bin/www",
+    "test": "mocha test/bootstrap.test.coffee test/**/*_spec.coffee",
+    "test-debug": "mocha debug test/bootstrap.test.coffee test/**/*_spec.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulodiovani/planning-poker-slack.git"
+  },
+  "keywords": [
+    "planning",
+    "poker",
+    "scrum",
+    "slack",
+    "agile"
+  ],
+  "author": "Paulo Diovani <paulo@diovani.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paulodiovani/planning-poker-slack/issues"
+  },
+  "homepage": "https://github.com/paulodiovani/planning-poker-slack#readme",
+  "dependencies": {
+    "good": "^7.0.1",
+    "good-console": "^6.1.2",
+    "good-squeeze": "^4.0.0",
+    "hapi": "^13.5.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coffee-script": "^1.10.0",
+    "mocha": "^2.5.3"
+  }
+}

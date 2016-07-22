@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+const server = require('../server');
+
+server.start(function(err) {
+  if (err) {
+    throw err;
+  }
+  server.log('info', 'Server running at: ' + server.info.uri);
+});
