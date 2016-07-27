@@ -33,7 +33,8 @@
     "good-console": "^6.1.2",
     "good-squeeze": "^4.0.0",
     "hapi": "^13.5.0",
-    "is-fibonacci": "^1.0.0"
+    "is-fibonacci": "^1.0.0",
+    "redis": "^2.6.2"
   },
   "devDependencies": {
     "code": "^3.0.1",

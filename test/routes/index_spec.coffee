@@ -80,6 +80,15 @@ describe 'Index Route', ->
       option = 'end'
       done()
 
+    beforeEach ->
+      server.inject(method: 'POST', url: '/', payload: { option: 'begin' })
+        .then ->
+          server.inject(method: 'POST', url: '/', payload: { option: 5 })
+        .then ->
+          server.inject(method: 'POST', url: '/', payload: { option: 3 })
+        .then ->
+          server.inject(method: 'POST', url: '/', payload: { option: 8 })
+
     it 'returns a 200 (success) status', (done) ->
       expect(@res.statusCode).to.equal 200
       done()
@@ -89,3 +98,12 @@ describe 'Index Route', ->
         .match /Finished planning poker session/
       done()
 
+    it 'prints votes', (done) ->
+      expect(@res.result.message).to
+        .match /Votes: 5, 3, 8/
+      done()
+
+    it 'prints average point value', (done) ->
+      expect(@res.result.message).to
+        .match /Average point value: 5/
+      done()
