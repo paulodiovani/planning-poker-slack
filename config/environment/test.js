@@ -1,15 +1,15 @@
 'use strict';
 
-exports['connection'] = {
-  'port': 3001
+exports.connection = {
+    port: 3001
 };
 
-exports['good-squeeze'] = {
-  error: '*'
+exports.goodSqueeze = {
+    error: '*'
 };
 
-exports['routes'] = {
-  json: {
-    space: 2
-  }
+exports.routes = {
+    json: {
+        space: 2
+    }
 };

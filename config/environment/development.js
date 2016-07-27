@@ -1,17 +1,17 @@
 'use strict';
 
-exports['connection'] = {
-  'port': 3000
+exports.connection = {
+    port: 3000
 };
 
-exports['good-squeeze'] = {
-  error: '*',
-  log: '*',
-  response: '*'
+exports.goodSqueeze = {
+    error: '*',
+    log: '*',
+    response: '*'
 };
 
-exports['routes'] = {
-  json: {
-    space: 2
-  }
+exports.routes = {
+    json: {
+        space: 2
+    }
 };
