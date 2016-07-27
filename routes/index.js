@@ -39,7 +39,13 @@ const index = (request, reply) => {
             message += `Votes: ${values.join(', ')}\n`;
             message += `Average point value: ${avg(values)}`;
 
-            reply({ message: message });
+            client.del(KEY, (err) => {
+
+                if (err) {
+                    return error(reply, 500, err.message);
+                }
+                reply({ message: message });
+            });
         });
     }
 
