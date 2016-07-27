@@ -50,6 +50,11 @@ const index = (request, reply) => {
         });
     }
 
+    if (option === '?') {
+        //ignore vote
+        return reply({ message: `Voted ${option}` });
+    }
+
     if (!Number(option)) {
         return error(reply, 400, 'Must provide command begin|end or a number');
     }
@@ -58,7 +63,7 @@ const index = (request, reply) => {
 
     //number/vote
     if (!FIBONACCI.includes(option)) {
-        return error(reply, 400, 'Must be a fibonacci number (0, 1, 2, 3, 5, 8, 13, 21)');
+        return error(reply, 400, 'Must be a fibonacci number (0, 1, 2, 3, 5, 8, 13, 21) or `?`');
     }
 
     client.rpush(KEY, option, (err) => {

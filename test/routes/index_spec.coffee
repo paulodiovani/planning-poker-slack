@@ -44,12 +44,26 @@ describe 'Index Route', ->
 
     it 'returns an error message', (done) ->
       expect(@res.result).to
-        .include error: 'Must be a fibonacci number (0, 1, 2, 3, 5, 8, 13, 21)'
+        .include error: 'Must be a fibonacci number (0, 1, 2, 3, 5, 8, 13, 21) or `?`'
       done()
 
   context 'with a fibonacci number as option', ->
     before (done) ->
       option = 13
+      done()
+
+    it 'returns a 200 (success) status', (done) ->
+      expect(@res.statusCode).to.equal 200
+      done()
+
+    it 'returns an success message', (done) ->
+      expect(@res.result).to
+        .include message: "Voted #{option}"
+      done()
+
+  context 'with an `?` as option', ->
+    before (done) ->
+      option = '?'
       done()
 
     it 'returns a 200 (success) status', (done) ->
