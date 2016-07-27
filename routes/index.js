@@ -1,9 +1,10 @@
 'use strict';
 
-const IsFibonacci = require('is-fibonacci');
 const Redis = require('redis');
 
 const client = Redis.createClient(process.env.REDIS_URL);
+
+const FIBONACCI = [0, 1, 1, 2, 3, 5, 8, 13, 21];
 const KEY = 'planning-poker';
 
 const index = (request, reply) => {
@@ -56,8 +57,8 @@ const index = (request, reply) => {
     option = Number(option);
 
     //number/vote
-    if (!IsFibonacci(option)) {
-        return error(reply, 400, 'Must be a fibonacci number (1, 2, 3, 5, 8, 13...)');
+    if (!FIBONACCI.includes(option)) {
+        return error(reply, 400, 'Must be a fibonacci number (0, 1, 2, 3, 5, 8, 13, 21)');
     }
 
     client.rpush(KEY, option, (err) => {
