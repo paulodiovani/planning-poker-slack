@@ -1,0 +1,19 @@
+language: node_js
+sudo: false
+cache:
+  directories:
+    - node_modules
+node_js:
+  - 6
+  - node
+env:
+  global:
+    - NODE_ENV=test
+script:
+  - npm test
+notifications:
+  email:
+    recipients:
+      - paulo@diovani.com
+services:
+  - redis-server

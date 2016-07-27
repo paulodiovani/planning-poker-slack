@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/paulodiovani/planning-poker-slack.svg?branch=master)](https://travis-ci.org/paulodiovani/planning-poker-slack)
+
 # Planning Poker Bot for Slack
 
 A Slack App to help using planning poker for SCRUM projects
