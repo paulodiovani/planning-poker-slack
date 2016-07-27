@@ -38,7 +38,7 @@ const index = (request, reply) => {
             let message = '';
             message += 'Finished planning poker session\n';
             message += `Votes: ${values.join(', ')}\n`;
-            message += `Average point value: ${avg(values)}`;
+            message += `Average point value: ${resultFib(values)}`;
 
             client.del(KEY, (err) => {
 
@@ -82,10 +82,17 @@ const error = (reply, status = 500, message = '') => {
     return false;
 };
 
-const avg = (values) => {
+const resultFib = (values) => {
 
     const sum = values.reduce(((memo, value) => memo + Number(value)), 0);
-    return sum / values.length;
+    const avg = sum / values.length;
+    return FIBONACCI.reduce((prev, next) => {
+
+        if (next < avg) {
+            return next;
+        }
+        return (avg - prev < next - avg) ? prev : next;
+    }, 0);
 };
 
 module.exports = [{
