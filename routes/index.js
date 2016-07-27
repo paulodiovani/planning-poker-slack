@@ -8,7 +8,7 @@ const index = (request, reply) => {
 
     //no option
     if (!option) {
-        return error(reply, 400, 'Option must be provided');
+        return error(reply, 400, 'Must provide command begin|end or a number');
     }
 
     //command option
@@ -19,15 +19,15 @@ const index = (request, reply) => {
 
     //number/vote
     if (!IsFibonacci(option)) {
-        return error(reply, 400, 'Not a fibonacci number');
+        return error(reply, 400, 'Must be a fibonacci number (1, 2, 3, 5, 8, 13...)');
     }
 
-    reply({});
+    reply({ message: `Voted ${option}` });
 };
 
 const error = (reply, status = 500, message = '') => {
 
-    const response = reply(message);
+    const response = reply({ error: message });
     response.statusCode = status;
     return false;
 };
