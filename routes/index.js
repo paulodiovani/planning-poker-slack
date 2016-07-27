@@ -4,16 +4,26 @@ const IsFibonacci = require('is-fibonacci');
 
 const index = (request, reply) => {
 
-    let option = request.payload;
+    let option = request.payload.option;
 
     //no option
     if (!option) {
         return error(reply, 400, 'Must provide command begin|end or a number');
     }
 
-    //command option
-    // if (Number(option) == NaN) {
-    // }
+    //begin session
+    if (option === 'begin') {
+        return reply({ message: 'Started new planning poker session' });
+    }
+
+    //end option
+    if (option === 'end') {
+        return reply({ message: 'Finished planning poker session' });
+    }
+
+    if (!Number(option)) {
+        return error(reply, 400, 'Must provide command begin|end or a number');
+    }
 
     option = Number(option);
 

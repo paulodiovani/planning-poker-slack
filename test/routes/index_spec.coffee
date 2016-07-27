@@ -5,11 +5,25 @@ describe 'Index Route', ->
     req =
       method: 'POST'
       url: '/'
-      payload: option
+      payload: { option }
 
     server.inject(req).then (@res) =>
 
   context 'without option', ->
+    it 'returns a 400 (bad request) status', (done) ->
+      expect(@res.statusCode).to.equal 400
+      done()
+
+    it 'returns an error message', (done) ->
+      expect(@res.result).to
+        .include error: 'Must provide command begin|end or a number'
+      done()
+
+  context 'with invalid command as option', ->
+    before (done) ->
+      option = 'foo bar'
+      done()
+
     it 'returns a 400 (bad request) status', (done) ->
       expect(@res.statusCode).to.equal 400
       done()
@@ -38,7 +52,7 @@ describe 'Index Route', ->
       option = 13
       done()
 
-    it 'returns a 200 (success) statys', (done) ->
+    it 'returns a 200 (success) status', (done) ->
       expect(@res.statusCode).to.equal 200
       done()
 
@@ -46,3 +60,32 @@ describe 'Index Route', ->
       expect(@res.result).to
         .include message: "Voted #{option}"
       done()
+
+  context 'with begin command as option', ->
+    before (done) ->
+      option = 'begin'
+      done()
+
+    it 'returns a 200 (success) status', (done) ->
+      expect(@res.statusCode).to.equal 200
+      done()
+
+    it 'starts a new session', (done) ->
+      expect(@res.result).to
+        .include message: 'Started new planning poker session'
+      done()
+
+  context 'with end command as option', ->
+    before (done) ->
+      option = 'end'
+      done()
+
+    it 'returns a 200 (success) status', (done) ->
+      expect(@res.statusCode).to.equal 200
+      done()
+
+    it 'ends current session', (done) ->
+      expect(@res.result.message).to
+        .match /Finished planning poker session/
+      done()
+
