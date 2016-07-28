@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "debug": "node debug ./bin/www",
-    "test": "lab test/bootstrap.test.coffee test/**/*_spec.coffee"
+    "test": "lab -c test/bootstrap.test.coffee test/**/*_spec.coffee",
+    "test-debug": "node debug node_modules/.bin/lab test/bootstrap.test.coffee test/**/*_spec.coffee"
   },
   "repository": {
     "type": "git",
