@@ -44,7 +44,7 @@ describe 'Index Route', ->
 
     it 'returns an error message', (done) ->
       expect(@res.result).to
-        .include error: 'Must be a fibonacci number (0, 1, 2, 3, 5, 8, 13, 21) or `?`'
+        .include error: 'Must be a fibonacci number (0, 1, 2, 3, 5, 8...) or `?`'
       done()
 
   context 'with a fibonacci number as option', ->
