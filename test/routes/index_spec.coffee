@@ -34,7 +34,7 @@ describe 'Index Route', ->
 
     it 'returns an error message', (done) ->
       expect(@res.result).to
-        .include text: 'Must provide command begin|end or a number'
+        .include text: 'Must provide command begin, end or a number'
       done()
 
   context 'with invalid command as option', ->
@@ -53,7 +53,7 @@ describe 'Index Route', ->
 
     it 'returns an error message', (done) ->
       expect(@res.result).to
-        .include text: 'Must provide command begin|end or a number'
+        .include text: 'Must provide command begin, end or a number'
       done()
 
   context 'with a non fibonacci number as option', ->

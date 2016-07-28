@@ -13,7 +13,7 @@ const index = (request, reply) => {
 
     //no option
     if (!option) {
-        return reply(answer('Must provide command begin|end or a number'));
+        return reply(answer('Must provide command begin, end or a number'));
     }
 
     //begin session
@@ -58,7 +58,7 @@ const index = (request, reply) => {
     }
 
     if (!Number(option)) {
-        return reply(answer('Must provide command begin|end or a number'));
+        return reply(answer('Must provide command begin, end or a number'));
     }
 
     option = Number(option);
