@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/paulodiovani/planning-poker-slack.svg?branch=master)](https://travis-ci.org/paulodiovani/planning-poker-slack)
+[![Dependency Status](https://david-dm.org/paulodiovani/planning-poker-slack.svg)](https://david-dm.org/paulodiovani/planning-poker-slack)
+[![devDependency Status](https://david-dm.org/paulodiovani/planning-poker-slack/dev-status.svg)](https://david-dm.org/paulodiovani/planning-poker-slack#info=devDependencies)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 # Planning Poker Bot for Slack
 
