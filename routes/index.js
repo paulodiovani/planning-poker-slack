@@ -13,7 +13,7 @@ const index = (request, reply) => {
 
     //no option
     if (!option) {
-        return error(reply, 400, 'Must provide command begin|end or a number');
+        return reply(answer('Must provide command begin|end or a number'));
     }
 
     //begin session
@@ -21,9 +21,9 @@ const index = (request, reply) => {
         return client.del(KEY, (err) => {
 
             if (err) {
-                return error(reply, 500, err.message);
+                return reply(answer(err.message));
             }
-            reply({ message: 'Started new planning poker session' });
+            reply(answer('Started new planning poker session', 'in_channel'));
         });
     }
 
@@ -32,54 +32,58 @@ const index = (request, reply) => {
         return client.lrange(KEY, 0, -1, (err, values) => {
 
             if (err) {
-                return error(reply, 500, err.message);
+                return reply(answer(err.message));
             }
 
-            let message = '';
-            message += 'Finished planning poker session\n';
-            message += `Votes: ${values.join(', ')}\n`;
-            message += `Average point value: ${resultFib(values)}`;
+            const message = 'Finished planning poker session';
+            const attachments = [{
+                text: `Votes: ${values.join(', ')}`
+            }, {
+                text: `Average point value: ${resultFib(values)}`
+            }];
 
             client.del(KEY, (err) => {
 
                 if (err) {
-                    return error(reply, 500, err.message);
+                    return reply(answer(err.message));
                 }
-                reply({ message: message });
+                reply(answer(message, 'in_channel', attachments));
             });
         });
     }
 
     if (option === '?') {
         //ignore vote
-        return reply({ message: `Voted ${option}` });
+        return reply(answer(`Voted ${option}`));
     }
 
     if (!Number(option)) {
-        return error(reply, 400, 'Must provide command begin|end or a number');
+        return reply(answer('Must provide command begin|end or a number'));
     }
 
     option = Number(option);
 
     //number/vote
     if (!FIBONACCI.includes(option)) {
-        return error(reply, 400, 'Must be a fibonacci number (0, 1, 2, 3, 5, 8...) or `?`');
+        return reply(answer('Must be a fibonacci number (0, 1, 2, 3, 5, 8...) or `?`'));
     }
 
     client.rpush(KEY, option, (err) => {
 
         if (err) {
-            return error(reply, 500, err.message);
+            return reply(answer(err.message));
         }
-        reply({ message: `Voted ${option}` });
+        reply(answer(`Voted ${option}`));
     });
 };
 
-const error = (reply, status = 500, message = '') => {
+const answer = (text, response_type = 'ephemeral', attachments = []) => {
 
-    const response = reply({ error: message });
-    response.statusCode = status;
-    return false;
+    return {
+        response_type,
+        text,
+        attachments
+    };
 };
 
 const resultFib = (values) => {
