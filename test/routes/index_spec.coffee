@@ -1,8 +1,7 @@
 describe 'Index Route', ->
   option = null
-  channel_id = 'C2147483705'
 
-  payload = (option, channel_id) ->
+  payload = (option, channel_id = 'C2147483705') ->
     token: 'd74735605d5e35f005c09054c2f6684c'
     team_id: 'T0001'
     team_domain: 'example'
@@ -18,7 +17,7 @@ describe 'Index Route', ->
     req =
       method: 'POST'
       url: '/'
-      payload: payload(option, channel_id)
+      payload: payload(option)
 
     server.inject(req).then (@res) =>
 
@@ -133,18 +132,17 @@ describe 'Index Route', ->
       done()
 
   context 'with end command as option', ->
-    before (done) ->
-      option = 'end'
-      done()
-
     beforeEach ->
-      server.inject(method: 'POST', url: '/', payload: payload('begin', channel_id) )
+      server.inject(method: 'POST', url: '/', payload: payload('begin', 'calculate') )
         .then ->
-          server.inject(method: 'POST', url: '/', payload: payload(5, channel_id) )
+          server.inject(method: 'POST', url: '/', payload: payload(5, 'calculate') )
         .then ->
-          server.inject(method: 'POST', url: '/', payload: payload(3, channel_id) )
+          server.inject(method: 'POST', url: '/', payload: payload(3, 'calculate') )
         .then ->
-          server.inject(method: 'POST', url: '/', payload: payload(8, channel_id) )
+          server.inject(method: 'POST', url: '/', payload: payload(8, 'calculate') )
+        .then ->
+          server.inject(method: 'POST', url: '/', payload: payload('end', 'calculate') )
+        .then (@res) =>
 
     it 'returns a 200 (success) status', (done) ->
       expect(@res.statusCode).to.equal 200
@@ -185,10 +183,9 @@ describe 'Index Route', ->
           server.inject(method: 'POST', url: '/', payload: payload(13, 'chan2') )
 
     describe 'channel 1', ->
-      before (done) ->
-        option = 'end'
-        channel_id = 'chan1'
-        done()
+      beforeEach ->
+        server.inject(method: 'POST', url: '/', payload: payload('end', 'chan1') )
+          .then (@res) =>
 
       it 'checks only channel 1 votes', (done) ->
         expect(@res.result.attachments).to
@@ -201,10 +198,9 @@ describe 'Index Route', ->
         done()
 
     describe 'channel 2', ->
-      before (done) ->
-        option = 'end'
-        channel_id = 'chan2'
-        done()
+      beforeEach ->
+        server.inject(method: 'POST', url: '/', payload: payload('end', 'chan2') )
+          .then (@res) =>
 
       it 'checks only channel 1 votes', (done) ->
         expect(@res.result.attachments).to
