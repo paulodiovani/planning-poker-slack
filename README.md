@@ -62,11 +62,15 @@ curl  -X POST -H 'Content-Type: application/json' -d '{"option": "end"}' http://
     - [x] Allow Fibonacci votes
     - [x] Build on Travis CI
     - [x] Prepare for heroku deploy
-    - [ ] Setup for work as a Slack App command (`/planning-poker` or `/pp`)
+    - [x] Setup for work as a Slack App command (`/planning-poker` or `/pp`)
+- [ ] Version 0.2.0
+    - [ ] Add an index page and API docs
+    - [ ] Update README with how to set up on Slack
 - [ ] Version 1.0.0
     - [ ] Split methods in reusable modules (probably under `lib/`)
-    - [ ] Allow concurrent poker sessions
-    - [ ] Improve responses
+    - [x] Allow concurrent poker sessions
+    - [ ] Show which users already voted
+    - [ ] Forbid duplicate votes per user
 - [ ] Version 1.1.0
     - [ ] Allow Standart _Planning Poker_ votes (0, 1, 2, 3, 5, 8, 13, 20, 40, 100, ?, :coffee:)
 - [ ] Version 1.2.0
