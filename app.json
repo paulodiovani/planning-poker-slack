@@ -1,0 +1,16 @@
+{
+  "name": "planning-poker-slack",
+  "repository": "https://github.com/paulodiovani/planning-poker-slack.git",
+  "image": "nodejs:6",
+  "addons": [
+    "heroku-redis:hobby-dev"
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "keywords": [
+    "node",
+    "hapi",
+    "redis"
+  ]
+}
