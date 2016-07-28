@@ -5,11 +5,11 @@ const Redis = require('redis');
 const client = Redis.createClient(process.env.REDIS_URL);
 
 const FIBONACCI = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144];
-const KEY = 'planning-poker';
 
 const index = (request, reply) => {
 
     let option = request.payload.text;
+    const key = `${request.payload.team_id}:${request.payload.channel_id}`;
 
     //no option
     if (!option) {
@@ -18,7 +18,7 @@ const index = (request, reply) => {
 
     //begin session
     if (option === 'begin') {
-        return client.del(KEY, (err) => {
+        return client.del(key, (err) => {
 
             if (err) {
                 return reply(answer(err.message));
@@ -29,7 +29,7 @@ const index = (request, reply) => {
 
     //end option
     if (option === 'end') {
-        return client.lrange(KEY, 0, -1, (err, values) => {
+        return client.lrange(key, 0, -1, (err, values) => {
 
             if (err) {
                 return reply(answer(err.message));
@@ -42,7 +42,7 @@ const index = (request, reply) => {
                 text: `Average point value: ${resultFib(values)}`
             }];
 
-            client.del(KEY, (err) => {
+            client.del(key, (err) => {
 
                 if (err) {
                     return reply(answer(err.message));
@@ -68,7 +68,7 @@ const index = (request, reply) => {
         return reply(answer('Must be a fibonacci number (0, 1, 2, 3, 5, 8...) or `?`'));
     }
 
-    client.rpush(KEY, option, (err) => {
+    client.rpush(key, option, (err) => {
 
         if (err) {
             return reply(answer(err.message));

@@ -1,11 +1,12 @@
 describe 'Index Route', ->
   option = null
+  channel_id = 'C2147483705'
 
-  payload = (option) ->
+  payload = (option, channel_id) ->
     token: 'd74735605d5e35f005c09054c2f6684c'
     team_id: 'T0001'
     team_domain: 'example'
-    channel_id: 'C2147483705'
+    channel_id: channel_id
     channel_name: 'test'
     user_id: 'U2147483697'
     user_name: 'Steve'
@@ -17,7 +18,7 @@ describe 'Index Route', ->
     req =
       method: 'POST'
       url: '/'
-      payload: payload(option)
+      payload: payload(option, channel_id)
 
     server.inject(req).then (@res) =>
 
@@ -137,13 +138,13 @@ describe 'Index Route', ->
       done()
 
     beforeEach ->
-      server.inject(method: 'POST', url: '/', payload: payload('begin') )
+      server.inject(method: 'POST', url: '/', payload: payload('begin', channel_id) )
         .then ->
-          server.inject(method: 'POST', url: '/', payload: payload(5) )
+          server.inject(method: 'POST', url: '/', payload: payload(5, channel_id) )
         .then ->
-          server.inject(method: 'POST', url: '/', payload: payload(3) )
+          server.inject(method: 'POST', url: '/', payload: payload(3, channel_id) )
         .then ->
-          server.inject(method: 'POST', url: '/', payload: payload(8) )
+          server.inject(method: 'POST', url: '/', payload: payload(8, channel_id) )
 
     it 'returns a 200 (success) status', (done) ->
       expect(@res.statusCode).to.equal 200
@@ -168,3 +169,49 @@ describe 'Index Route', ->
       expect(@res.result.attachments).to
         .include text: 'Average point value: 5'
       done()
+
+  context 'when used with concurrency', ->
+    beforeEach ->
+      server.inject(method: 'POST', url: '/', payload: payload('begin', 'chan1') )
+        .then ->
+          server.inject(method: 'POST', url: '/', payload: payload('begin', 'chan2') )
+        .then ->
+          server.inject(method: 'POST', url: '/', payload: payload(5, 'chan1') )
+        .then ->
+          server.inject(method: 'POST', url: '/', payload: payload(13, 'chan2') )
+        .then ->
+          server.inject(method: 'POST', url: '/', payload: payload(5, 'chan1') )
+        .then ->
+          server.inject(method: 'POST', url: '/', payload: payload(13, 'chan2') )
+
+    describe 'channel 1', ->
+      before (done) ->
+        option = 'end'
+        channel_id = 'chan1'
+        done()
+
+      it 'checks only channel 1 votes', (done) ->
+        expect(@res.result.attachments).to
+          .include text: 'Votes: 5, 5'
+        done()
+
+      it 'calculates only channel 1 votes', (done) ->
+        expect(@res.result.attachments).to
+          .include text: 'Average point value: 5'
+        done()
+
+    describe 'channel 2', ->
+      before (done) ->
+        option = 'end'
+        channel_id = 'chan2'
+        done()
+
+      it 'checks only channel 1 votes', (done) ->
+        expect(@res.result.attachments).to
+          .include text: 'Votes: 13, 13'
+        done()
+
+      it 'calculates only channel 2 votes', (done) ->
+        expect(@res.result.attachments).to
+          .include text: 'Average point value: 13'
+        done()
