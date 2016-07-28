@@ -1,11 +1,23 @@
 describe 'Index Route', ->
   option = null
 
+  payload = (option) ->
+    token: 'd74735605d5e35f005c09054c2f6684c'
+    team_id: 'T0001'
+    team_domain: 'example'
+    channel_id: 'C2147483705'
+    channel_name: 'test'
+    user_id: 'U2147483697'
+    user_name: 'Steve'
+    command: '/planningpoker'
+    text: option
+    response_url: 'https://hooks.slack.com/commands/1234/5678'
+
   beforeEach ->
     req =
       method: 'POST'
       url: '/'
-      payload: { option }
+      payload: payload(option)
 
     server.inject(req).then (@res) =>
 
@@ -95,13 +107,13 @@ describe 'Index Route', ->
       done()
 
     beforeEach ->
-      server.inject(method: 'POST', url: '/', payload: { option: 'begin' })
+      server.inject(method: 'POST', url: '/', payload: payload('begin') )
         .then ->
-          server.inject(method: 'POST', url: '/', payload: { option: 5 })
+          server.inject(method: 'POST', url: '/', payload: payload(5) )
         .then ->
-          server.inject(method: 'POST', url: '/', payload: { option: 3 })
+          server.inject(method: 'POST', url: '/', payload: payload(3) )
         .then ->
-          server.inject(method: 'POST', url: '/', payload: { option: 8 })
+          server.inject(method: 'POST', url: '/', payload: payload(8) )
 
     it 'returns a 200 (success) status', (done) ->
       expect(@res.statusCode).to.equal 200

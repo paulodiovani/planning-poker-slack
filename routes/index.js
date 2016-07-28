@@ -9,7 +9,7 @@ const KEY = 'planning-poker';
 
 const index = (request, reply) => {
 
-    let option = request.payload.option;
+    let option = request.payload.text;
 
     //no option
     if (!option) {
