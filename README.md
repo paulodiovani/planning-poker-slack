@@ -56,7 +56,7 @@ curl  -X POST -H 'Content-Type: application/json' -d '{"option": "end"}' http://
 
 ## Roadmap and TODO list
 
-- [ ] Version 0.1.0
+- [x] Version 0.1.0
     - [x] Create a default REST endpoint
     - [x] Parse simple commands or vote value
     - [x] Allow Fibonacci votes
