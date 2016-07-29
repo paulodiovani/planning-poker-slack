@@ -3,7 +3,7 @@
 [![devDependency Status](https://david-dm.org/paulodiovani/planning-poker-slack/dev-status.svg)](https://david-dm.org/paulodiovani/planning-poker-slack#info=devDependencies)
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-# Planning Poker Bot for Slack
+# Planning Poker for Slack
 
 A Slack App to help using planning poker for SCRUM projects
 
@@ -21,40 +21,10 @@ npm install
 npm test
 ```
 
-## Running local
+## Set Up
 
-```bash
-npm install
-npm start
-```
-
-You can test with `curl`.
-
-```bash
-curl  -X POST -H 'Content-Type: application/json' -d '{"option": "begin"}' http://localhost:3000/
-{"message":"Started new planning poker session"}
-
-curl  -X POST -H 'Content-Type: application/json' -d '{"option": "8"}' http://localhost:3000/
-{"message":"Voted 8"}
-
-curl  -X POST -H 'Content-Type: application/json' -d '{"option": "8"}' http://localhost:3000/
-{"message":"Voted 8"}
-
-curl  -X POST -H 'Content-Type: application/json' -d '{"option": "8"}' http://localhost:3000/
-{"message":"Voted 8"}
-
-curl  -X POST -H 'Content-Type: application/json' -d '{"option": "13"}' http://localhost:3000/
-{"message":"Voted 13"}
-
-curl  -X POST -H 'Content-Type: application/json' -d '{"option": "21"}' http://localhost:3000/
-{"message":"Voted 21"}
-
-curl  -X POST -H 'Content-Type: application/json' -d '{"option": "3"}' http://localhost:3000/
-{"message":"Voted 3"}
-
-curl  -X POST -H 'Content-Type: application/json' -d '{"option": "end"}' http://localhost:3000/
-{"message":"Finished planning poker session\nVotes: 8, 8, 8, 13, 21, 3\nAverage point value: 8"}
-```
+1. Deploy to Heroku or you preferred hosting service.
+2. Configure as a [_Slash Command_ for Slack](https://api.slack.com/slash-commands)
 
 ## Roadmap and TODO list
 
@@ -67,7 +37,7 @@ curl  -X POST -H 'Content-Type: application/json' -d '{"option": "end"}' http://
     - [x] Setup for work as a Slack App command (`/planning-poker` or `/pp`)
 - [ ] Version 0.2.0
     - [ ] Add an index page and API docs
-    - [ ] Update README with how to set up on Slack
+    - [x] Update README with how to set up on Slack
 - [ ] Version 1.0.0
     - [ ] Split methods in reusable modules (probably under `lib/`)
     - [x] Allow concurrent poker sessions
@@ -76,4 +46,4 @@ curl  -X POST -H 'Content-Type: application/json' -d '{"option": "end"}' http://
 - [ ] Version 1.1.0
     - [ ] Allow Standart _Planning Poker_ votes (0, 1, 2, 3, 5, 8, 13, 20, 40, 100, ?, :coffee:)
 - [ ] Version 1.2.0
-    - [ ] Allow common scalar points (0, 1, 2, 3, 4, 5, 6...)
+    - [ ] Allow ordinary incremental points (0, 1, 2, 3, 4, 5, 6...)
