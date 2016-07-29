@@ -7,6 +7,8 @@
 
 A Slack App to help using planning poker for SCRUM projects
 
+![example](docs/img/example.jpg)
+
 ## Dependencies
 
 - Node.js ^6.2.2
