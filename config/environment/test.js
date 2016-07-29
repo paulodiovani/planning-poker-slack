@@ -1,15 +1,15 @@
 'use strict';
 
 exports.connection = {
-    port: 3001
+  port: 3001
 };
 
 exports.goodSqueeze = {
-    error: '*'
+  error: '*'
 };
 
 exports.routes = {
-    json: {
-        space: 2
-    }
+  json: {
+    space: 2
+  }
 };
